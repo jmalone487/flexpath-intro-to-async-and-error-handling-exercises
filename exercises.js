@@ -22,7 +22,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   */
 
   // Modify the line of code BELOW to run a different exercise
-  exercise_01();
+  exercise_20();
   // Modify the line of code ABOVE to run a different exercise
 }
 
@@ -44,7 +44,24 @@ function exercise_01() {
 
   let placeholder = "Delete me and code here";
 
-  // CODE IN THE OPEN LINES ABOVE
+  // Synchronous: runs line by line, blocking until each step finishes.
+function syncCount() {
+  for (let i = 1; i <= 5; i++) {
+    console.log(i);
+  }
+}
+
+// Asynchronous: uses timers or promises, allowing other code to run meanwhile.
+async function asyncCount() {
+  for (let i = 1; i <= 5; i++) {
+    console.log(i);
+    await new Promise(resolve => setTimeout(resolve, 1000)); // 1 second delay
+  }
+}
+
+syncCount();
+asyncCount();
+
 }
 
 function exercise_02() {
@@ -61,7 +78,20 @@ function exercise_02() {
   */
   // CODE IN THE OPEN LINES BELOW
 
-  let placeholder = "Delete me and code here";
+  function fetchData(callback) {
+  console.log("Fetching data...");
+
+  setTimeout(() => {
+    const fakeData = { message: "Data fetched successfully" };
+    callback(fakeData);
+  }, 2000);
+}
+
+// Example usage:
+fetchData((data) => {
+  console.log("Callback received:", data);
+});
+
 
   // CODE IN THE OPEN LINES ABOVE
 }
@@ -81,7 +111,25 @@ function exercise_03() {
   */
   // CODE IN THE OPEN LINES BELOW
 
-  let placeholder = "Delete me and code here";
+  function readFile(filename, callback) {
+  setTimeout(() => {
+    if (filename === "data.txt") {
+      callback(null, "File content");
+    } else {
+      callback("Error: File not found", null);
+    }
+  }, 1000);
+}
+
+// Example usage:
+readFile("data.txt", (err, content) => {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("File read:", content);
+  }
+});
+
 
   // CODE IN THE OPEN LINES ABOVE
 }
@@ -99,7 +147,37 @@ function exercise_04() {
   */
   // CODE IN THE OPEN LINES BELOW
 
-  let placeholder = "Delete me and code here";
+  // Simulate async tasks
+function task1(callback) {
+  setTimeout(() => {
+    console.log("Task 1 complete");
+    callback();
+  }, 1000);
+}
+
+function task2(callback) {
+  setTimeout(() => {
+    console.log("Task 2 complete");
+    callback();
+  }, 1000);
+}
+
+function task3(callback) {
+  setTimeout(() => {
+    console.log("Task 3 complete");
+    callback();
+  }, 1000);
+}
+
+// Callback Hell
+task1(() => {
+  task2(() => {
+    task3(() => {
+      console.log("All tasks finished (callback hell)");
+    });
+  });
+});
+
 
   // CODE IN THE OPEN LINES ABOVE
 }
@@ -117,7 +195,23 @@ function exercise_05() {
   */
   // CODE IN THE OPEN LINES BELOW
 
-  let placeholder = "Delete me and code here";
+  function readFilePromise(filename) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (filename === "data.txt") {
+        resolve("File content");
+      } else {
+        reject("Error: File not found");
+      }
+    }, 1000);
+  });
+}
+
+// Example usage:
+readFilePromise("data.txt")
+  .then(content => console.log("File read:", content))
+  .catch(err => console.log(err));
+
 
   // CODE IN THE OPEN LINES ABOVE
 }
@@ -136,7 +230,39 @@ function exercise_06() {
   */
   // CODE IN THE OPEN LINES BELOW
 
-  let placeholder = "Delete me and code here";
+  function task1() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      console.log("Task 1 complete");
+      resolve();
+    }, 1000);
+  });
+}
+
+function task2() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      console.log("Task 2 complete");
+      resolve();
+    }, 1000);
+  });
+}
+
+function task3() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      console.log("Task 3 complete");
+      resolve();
+    }, 1000);
+  });
+}
+
+// Chain them
+task1()
+  .then(() => task2())
+  .then(() => task3())
+  .then(() => console.log("All tasks finished (promise chain)"));
+
 
   // CODE IN THE OPEN LINES ABOVE
 }
@@ -154,7 +280,37 @@ async function exercise_07() {
   */
   // CODE IN THE OPEN LINES BELOW
 
-  let placeholder = "Delete me and code here";
+  function task1() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      console.log("Task 1 complete");
+      resolve();
+    }, 1000);
+  });
+}
+
+function task2() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      reject("Task 2 failed");
+    }, 1000);
+  });
+}
+
+function task3() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      console.log("Task 3 complete");
+      resolve();
+    }, 1000);
+  });
+}
+
+task1()
+  .then(() => task2())
+  .then(() => task3())
+  .catch(err => console.log("Error:", err));
+
 
   // CODE IN THE OPEN LINES ABOVE
 }
@@ -173,7 +329,38 @@ async function exercise_08() {
   */
   // CODE IN THE OPEN LINES BELOW
 
-  let placeholder = "Delete me and code here";
+  function task1() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      console.log("Task 1 complete");
+      resolve();
+    }, 1000);
+  });
+}
+
+function task2() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      reject("Task 2 failed");
+    }, 1000);
+  });
+}
+
+function task3() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      console.log("Task 3 complete");
+      resolve();
+    }, 1000);
+  });
+}
+
+task1()
+  .then(() => task2())
+  .then(() => task3())
+  .catch(err => console.log("Error:", err))
+  .finally(() => console.log("Process finished"));
+
 
   // CODE IN THE OPEN LINES ABOVE
 }
@@ -192,7 +379,42 @@ async function exercise_09() {
   */
   // CODE IN THE OPEN LINES BELOW
 
-  let placeholder = "Delete me and code here";
+  function task1() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      console.log("Task 1 complete");
+      resolve();
+    }, 1000);
+  });
+}
+
+function task2() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      console.log("Task 2 complete");
+      resolve();
+    }, 1000);
+  });
+}
+
+function task3() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      console.log("Task 3 complete");
+      resolve();
+    }, 1000);
+  });
+}
+
+async function runTasks() {
+  await task1();
+  await task2();
+  await task3();
+  console.log("All tasks finished (async/await)");
+}
+
+runTasks();
+
 
   // CODE IN THE OPEN LINES ABOVE
 }
@@ -214,7 +436,46 @@ async function exercise_10() {
   */
   // CODE IN THE OPEN LINES BELOW
 
-  let placeholder = "Delete me and code here";
+  function task1() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      console.log("Task 1 complete");
+      resolve();
+    }, 1000);
+  });
+}
+
+function task2() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      reject("Task 2 failed");
+    }, 1000);
+  });
+}
+
+function task3() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      console.log("Task 3 complete");
+      resolve();
+    }, 1000);
+  });
+}
+
+async function runTasks() {
+  try {
+    await task1();
+    await task2(); // this will throw
+    await task3();
+  } catch (err) {
+    console.log("Error:", err);
+  } finally {
+    console.log("Process finished");
+  }
+}
+
+runTasks();
+
 
   // CODE IN THE OPEN LINES ABOVE
 }
@@ -234,7 +495,38 @@ async function exercise_11() {
   */
   // CODE IN THE OPEN LINES BELOW
 
-  let placeholder = "Delete me and code here";
+  // Synchronous error example
+function checkNumber(num) {
+  try {
+    if (num < 0) {
+      throw new Error("Number cannot be negative");
+    }
+    console.log("Valid number:", num);
+  } catch (err) {
+    console.log("Sync Error:", err.message);
+  }
+}
+
+// Asynchronous error example
+async function fetchData() {
+  try {
+    // Simulated fetch response
+    const response = { ok: false }; // pretend the request failed
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    console.log("Data fetched successfully");
+  } catch (err) {
+    console.log("Async Error:", err.message);
+  }
+}
+
+// Example usage:
+checkNumber(-5);
+fetchData();
+
 
   // CODE IN THE OPEN LINES ABOVE
 }
@@ -254,7 +546,31 @@ function exercise_12() {
   */
   // CODE IN THE OPEN LINES BELOW
 
-  let placeholder = "Delete me and code here";
+  class ValidationError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "ValidationError";
+  }
+}
+
+function checkPositiveNumber(num) {
+  try {
+    if (num < 0) {
+      throw new ValidationError("Number must be positive");
+    }
+    console.log("Valid number:", num);
+  } catch (err) {
+    if (err instanceof ValidationError) {
+      console.log("Validation Error:", err.message);
+    } else {
+      console.log("Unknown Error:", err);
+    }
+  }
+}
+
+// Example usage:
+checkPositiveNumber(-10);
+
 
   // CODE IN THE OPEN LINES ABOVE
 }
@@ -276,7 +592,14 @@ function exercise_13() {
   */
   // CODE IN THE OPEN LINES BELOW
 
-  let placeholder = "Delete me and code here";
+  fs.readFile("exercise_example.txt", "utf8", (err, data) => {
+  if (err) {
+    console.log("Error reading file:", err.message);
+  } else {
+    console.log("File contents:", data);
+  }
+});
+
 
   // CODE IN THE OPEN LINES ABOVE
 }
@@ -298,7 +621,17 @@ function exercise_14() {
   */
   // CODE IN THE OPEN LINES BELOW
 
-  let placeholder = "Delete me and code here";
+  async function readFileAsync() {
+  try {
+    const data = await fsPromises.readFile("exercise_example.txt", "utf8");
+    console.log("File contents:", data);
+  } catch (err) {
+    console.log("Error reading file:", err.message);
+  }
+}
+
+readFileAsync();
+
 
   // CODE IN THE OPEN LINES ABOVE
 }
@@ -321,7 +654,18 @@ async function exercise_15() {
   */
   // CODE IN THE OPEN LINES BELOW
 
-  let placeholder = "Delete me and code here";
+  async function copyFile() {
+  try {
+    const data = await fsPromises.readFile("source.txt", "utf8");
+    await fsPromises.writeFile("destination.txt", data);
+    console.log("File copied successfully");
+  } catch (err) {
+    console.log("Error copying file:", err.message);
+  }
+}
+
+copyFile();
+
 
   // CODE IN THE OPEN LINES ABOVE
 }
@@ -341,7 +685,18 @@ function exercise_16() {
   */
   // CODE IN THE OPEN LINES BELOW
 
-  let placeholder = "Delete me and code here";
+  async function copyFile() {
+  try {
+    const data = await fsPromises.readFile("source.txt", "utf8");
+    await fsPromises.writeFile("destination.txt", data);
+    console.log("File copied successfully");
+  } catch (err) {
+    console.log("Error copying file:", err.message);
+  }
+}
+
+copyFile();
+
 
   // CODE IN THE OPEN LINES ABOVE
 }
@@ -387,7 +742,29 @@ function exercise_17() {
   */
   // CODE IN THE OPEN LINES BELOW
 
-  let placeholder = "Delete me and code here";
+  function retry(fn, retries) {
+  let attempt = 0;
+
+  function execute() {
+    try {
+      fn();
+    } catch (err) {
+      if (attempt < retries) {
+        attempt++;
+        console.log(`Retrying... attempt ${attempt}`);
+        execute();
+      } else {
+        console.log("Function failed after retry limit:", err.message);
+      }
+    }
+  }
+
+  execute();
+}
+
+// Test with provided function
+retry(errorProneFunction, 3);
+
 
   // CODE IN THE OPEN LINES ABOVE
 }
@@ -415,13 +792,19 @@ function exercise_18() {
   */
   // CODE IN THE OPEN LINES BELOW
 
-  let placeholder = "Delete me and code here";
+  const p1 = sleep(1000).then(() => "First done");
+  const p2 = sleep(1500).then(() => "Second done");
+
+Promise.all([p1, p2])
+  .then(results => console.log("Results:", results))
+  .catch(err => console.log("Error:", err));
+
 
   // CODE IN THE OPEN LINES ABOVE
 }
 
 function exercise_19() {
-  function sleep(ms) {
+function sleep(ms) {
     return new Promise((resolve) => {
       setTimeout(resolve, ms);
     });
@@ -444,7 +827,13 @@ function exercise_19() {
   */
   // CODE IN THE OPEN LINES BELOW
 
-  let placeholder = "Delete me and code here";
+  const fast = sleep(1000).then(() => "Fast promise finished");
+  const slow = sleep(2000).then(() => "Slow promise finished");
+
+Promise.race([fast, slow])
+  .then(result => console.log("Winner:", result))
+  .catch(err => console.log("Error:", err));
+
 
   // CODE IN THE OPEN LINES ABOVE
 }
@@ -471,7 +860,11 @@ function exercise_20() {
   */
   // CODE IN THE OPEN LINES BELOW
 
-  let placeholder = "Delete me and code here";
+  Promise.allSettled(promiseList)
+  .then(results => {
+    console.log("All settled results:");
+    console.log(results);
+  });
 
   // CODE IN THE OPEN LINES ABOVE
 }
